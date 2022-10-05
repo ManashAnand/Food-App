@@ -1,6 +1,6 @@
 import React,{useEffect,useState} from 'react'
 
-export default function Card() {
+export default function Card(props) {
     const [search,setSearch] = useState("");
     const [btnValue,setbtnValue] = useState("orange");
     const apikey = `https://api.spoonacular.com/recipes/findByIngredients?ingredients=${btnValue}?query=${btnValue}&apiKey=96a3052c31c549b697f30aee47939b02`;
@@ -23,10 +23,13 @@ export default function Card() {
     
     const getData = async () =>
     {
+        props.setProgress(70);
         const data = await fetch(apikey);
+        props.setProgress(85);
         const JSONdata = await data.json();
         console.log(JSONdata);
         setMainData(JSONdata);
+        props.setProgress(100);
     }
     
   return (
